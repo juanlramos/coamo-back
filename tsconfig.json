@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "es2021",                     /* Define a versão do JavaScript para a qual o código será compilado */
+    "module": "commonjs",                   /* A linha mais importante! Define o sistema de módulos como CommonJS */
+    "esModuleInterop": true,                /* Permite compatibilidade entre os dois sistemas de módulos */
+    "forceConsistentCasingInFileNames": true, /* Garante que os nomes de arquivos sejam consistentes */
+    "strict": true,                         /* Habilita todas as checagens de tipo mais rigorosas */
+    "skipLibCheck": true                    /* Pula a verificação de tipos dos arquivos de declaração (.d.ts) */
+  }
+}
