@@ -5,6 +5,8 @@
     "esModuleInterop": true,                /* Permite compatibilidade entre os dois sistemas de módulos */
     "forceConsistentCasingInFileNames": true, /* Garante que os nomes de arquivos sejam consistentes */
     "strict": true,                         /* Habilita todas as checagens de tipo mais rigorosas */
-    "skipLibCheck": true                    /* Pula a verificação de tipos dos arquivos de declaração (.d.ts) */
+    "skipLibCheck": true,                    /* Pula a verificação de tipos dos arquivos de declaração (.d.ts) */
+    "outDir": "./build",                     /* Define o diretório de saída para os arquivos compilados */
+    "rootDir": "./src",                     /* Define o diretório raiz dos arquivos de origem */
   }
 }
