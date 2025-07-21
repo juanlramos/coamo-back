@@ -1,8 +1,10 @@
 import express from "express";
+import { router } from "./routes";
 
 const server = express();
 
-server.get("/", (req, res) => {
-  return res.send("Olá, Dev!");
-});
+//aqui a gente informa que o servidor vai usar nossas rotas
+server.use(express.json()); // para permitir o uso de JSON no corpo das requisições
+server.use(router);
+
 export { server };
