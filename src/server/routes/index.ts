@@ -8,6 +8,10 @@ router.get("/", (_, res) => {
   return res.send("Funcionando!");
 });
 
-router.post("/cidades", CidadesController.Create);
+router.post(
+  "/cidades",
+  CidadesController.createValidation,
+  CidadesController.Create
+);
 
 export { router };
