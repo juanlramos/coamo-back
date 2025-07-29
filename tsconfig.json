@@ -8,5 +8,11 @@
     "skipLibCheck": true,                    /* Pula a verificação de tipos dos arquivos de declaração (.d.ts) */
     "outDir": "./build",                     /* Define o diretório de saída para os arquivos compilados */
     "rootDir": "./src",                     /* Define o diretório raiz dos arquivos de origem */
-  }
+  },
+  "exclude": [
+    "jest.config.ts", 
+    "node_modules",
+    "build",
+    "tests"
+  ]
 }

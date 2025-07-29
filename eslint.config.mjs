@@ -48,5 +48,6 @@ export default defineConfig([
       "@typescript-eslint/no-empty-object-type": "off",
       
     },
+    ignorePatterns: ["jest.config.js", "tsconfig.json"], 
   },
 ]);
