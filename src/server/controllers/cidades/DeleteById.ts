@@ -16,8 +16,13 @@ export const deleteByIdValidation = validation((getSchema) => ({
 }));
 
 export const DeleteById = async (req: Request<IParamProps>, res: Response) => {
-  console.log({ ...req.params });
-  return res
-    .status(StatusCodes.INTERNAL_SERVER_ERROR)
-    .send("Não implementado!");
+  //por não ter um banco de dados real, vamos simular a exclusão de um registro inexistente
+  if (Number(req.params.id) === 99999)
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      errors: {
+        default: "Registro não encontrado",
+      },
+    });
+
+  return res.status(StatusCodes.NO_CONTENT).send();
 };

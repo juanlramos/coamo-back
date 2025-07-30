@@ -23,8 +23,8 @@ export const GetAll = async (
   req: Request<{}, {}, {}, IQueryProps>,
   res: Response
 ) => {
-  console.log(req.query);
-  return res
-    .status(StatusCodes.INTERNAL_SERVER_ERROR)
-    .send("Não implementado!");
+  res.setHeader("acess-control-expose-headers", "X-Total-Count"); // Expondo o header X-Total-Count para o navegador
+  res.setHeader("X-Total-Count", 1); // Simulando total de registros
+
+  return res.status(StatusCodes.OK).json([{ id: 1, nome: "Cidade Exemplo" }]); // Simulando retorno de registros
 };
