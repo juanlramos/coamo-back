@@ -5,7 +5,9 @@
   "scripts": {
     "test": "jest",
     "start": "ts-node-dev ./src/index.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "production": "node ./build/index.js",
+    "postinstall": "tsc"
   },
   "repository": {
     "type": "git",
@@ -37,5 +39,8 @@
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.37.0"
+  },
+  "engines": {
+    "node": "16.x"
   }
 }
