@@ -1,18 +1,16 @@
 import { ETableNames } from "../../ETableNames";
 import { Knex } from "../../knex";
-import { ICidade } from "../../models";
+import { IPessoa } from "../../models";
 
 export const GetAll = async (
   page: number,
   limit: number,
-  filter: string,
-  id = 0
-): Promise<ICidade[] | Error> => {
+  filter: string
+): Promise<IPessoa[] | Error> => {
   try {
-    const result = await Knex(ETableNames.cidade)
+    const result = await Knex(ETableNames.pessoa)
       .select("*")
-      .where("id", "=", Number(id))
-      .orWhere("nome", "like", `%${filter}%`)
+      .where("nomeCompleto", "like", `%${filter}%`)
       /**
        * o offset serve para paginar os registros
        * exemplo, pagina 1 - 1 = 0 * limit(10) = 0 , vai pegar do zero pra frente os 10 registros
@@ -21,15 +19,6 @@ export const GetAll = async (
        */
       .offset((page - 1) * limit)
       .limit(limit);
-
-    if (id > 0 && result.every((item) => item.id !== id)) {
-      const resultById = await Knex(ETableNames.cidade)
-        .select("*")
-        .where("id", "=", id)
-        .first();
-
-      if (resultById) return [...result, resultById];
-    }
 
     return result;
   } catch (error) {
