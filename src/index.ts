@@ -7,13 +7,17 @@ const startServer = () => {
   });
 };
 
-
 //configuração, para em produção rodar as migrations automaticas, mas em localhost so rodar o server
 if (process.env.IS_LOCALHOST !== "true") {
   Knex.migrate
     .latest()
     .then(() => {
-      startServer();
+      Knex.seed
+        .run()
+        .then(() => {
+          startServer();
+        })
+        .catch(console.log);
     })
     .catch(console.log);
 } else {
