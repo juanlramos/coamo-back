@@ -3,6 +3,7 @@ import { Knex } from "../../knex";
 import { IPessoa } from "../../models";
 
 export const GetById = async (id: number): Promise<IPessoa | Error> => {
+
   try {
     const result = await Knex(ETableNames.pessoa)
       .select("*")
