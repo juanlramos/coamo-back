@@ -5,6 +5,7 @@ import { StatusCodes } from "http-status-codes";
 import { IUsuario } from "../../database/models";
 import { validation } from "../../shared/middlewares";
 import { UsuariosProvider } from "../../database/providers/usuarios";
+import { PasswordCrypto } from "../../shared/services";
 
 interface IBodyProps extends Omit<IUsuario, "id" | "nome"> {}
 
@@ -37,7 +38,11 @@ export const SignIn = async (
   }
 
   //se a senha informada é diferente da senha no banco de dados, não está autorizado
-  if (senha !== result.senha) {
+  const passwordMatch = await PasswordCrypto.verifyPassword(
+    senha,
+    result.senha
+  );
+  if (!passwordMatch) {
     return res.status(StatusCodes.UNAUTHORIZED).json({
       errors: {
         default: "Email ou Senha Invalidos",
