@@ -5,7 +5,7 @@ import { StatusCodes } from "http-status-codes";
 import { IUsuario } from "../../database/models";
 import { validation } from "../../shared/middlewares";
 import { UsuariosProvider } from "../../database/providers/usuarios";
-import { PasswordCrypto } from "../../shared/services";
+import { JWTService, PasswordCrypto } from "../../shared/services";
 
 interface IBodyProps
   extends Omit<IUsuario, "id" | "nome" | "emailConfirmado"> {}
@@ -27,10 +27,10 @@ export const SignIn = async (
   const { email, senha } = req.body;
 
   //busca os dados do usuario pelo email
-  const result = await UsuariosProvider.GetByEmail(email);
+  const usuario = await UsuariosProvider.GetByEmail(email);
 
   //se deu erro na busca, o user não ta autorizado
-  if (result instanceof Error) {
+  if (usuario instanceof Error) {
     return res.status(StatusCodes.UNAUTHORIZED).json({
       errors: {
         default: "Email ou Senha Invalidos",
@@ -41,7 +41,7 @@ export const SignIn = async (
   //se a senha informada é diferente da senha no banco de dados, não está autorizado
   const passwordMatch = await PasswordCrypto.verifyPassword(
     senha,
-    result.senha
+    usuario.senha
   );
   if (!passwordMatch) {
     return res.status(StatusCodes.UNAUTHORIZED).json({
@@ -51,8 +51,18 @@ export const SignIn = async (
     });
   } else {
     //se deu tudo certo, o status é ok e gera um token de acesso
+    const accessToken = JWTService.sign({ uid: usuario.id });
+
+    if (accessToken === "JWT_SECRET_NOT_FOUND") {
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        errors: {
+          default: "Erro ao gerar o token de acesso.",
+        },
+      });
+    }
+
     return res.status(StatusCodes.OK).json({
-      accessToken: "teste.teste.teste",
+      accessToken,
     });
   }
 };
