@@ -5,8 +5,9 @@ import { StatusCodes } from "http-status-codes";
 import { IUsuario } from "../../database/models";
 import { validation } from "../../shared/middlewares";
 import { UsuariosProvider } from "../../database/providers/usuarios";
+import { EmailConfirm } from "../../shared/services";
 
-interface IBodyProps extends Omit<IUsuario, "id"> {}
+interface IBodyProps extends Omit<IUsuario, "id" | "emailConfirmado"> {}
 
 export const signUpValidation = validation((get) => ({
   body: get<IBodyProps>(
@@ -28,6 +29,17 @@ export const SignUp = async (
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       errors: {
         default: result.message,
+      },
+    });
+  }
+
+  //envio de email de confirmação
+  const resultEmail = await EmailConfirm(req.body.email);
+
+  if (resultEmail instanceof Error) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      errors: {
+        default: resultEmail.message,
       },
     });
   }

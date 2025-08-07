@@ -4,7 +4,7 @@ import { Knex } from "../../knex";
 import { IUsuario } from "../../models";
 
 export const Create = async (
-  usuario: Omit<IUsuario, "id">
+  usuario: Omit<IUsuario, "id" | "emailConfirmado">
 ): Promise<number | Error> => {
   try {
 

@@ -7,7 +7,8 @@ import { validation } from "../../shared/middlewares";
 import { UsuariosProvider } from "../../database/providers/usuarios";
 import { PasswordCrypto } from "../../shared/services";
 
-interface IBodyProps extends Omit<IUsuario, "id" | "nome"> {}
+interface IBodyProps
+  extends Omit<IUsuario, "id" | "nome" | "emailConfirmado"> {}
 
 export const signInValidation = validation((get) => ({
   body: get<IBodyProps>(

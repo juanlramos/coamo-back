@@ -8,6 +8,7 @@ export async function up(knex: Knex) {
       table.string("nome").notNullable().checkLength(">=", 3);
       table.string("email").index().unique().notNullable().checkLength(">=", 5);
       table.string("senha").notNullable().checkLength(">=", 6);
+      table.boolean("emailConfirmado").defaultTo(false);
 
       table.comment("Tabela de usuario");
     })
