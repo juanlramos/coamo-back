@@ -29,8 +29,8 @@ export const GetAll = async (
   const result = await CidadesProvider.GetAll(
     req.query.page || 1,
     req.query.limit || 7,
-    req.query.filter || '',
-    Number(req.query.id)
+    req.query.filter || "",
+    Number(req.query.id || 0)
   );
   const count = await CidadesProvider.Count(req.query.filter);
 
