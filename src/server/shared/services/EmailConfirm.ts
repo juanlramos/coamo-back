@@ -10,13 +10,13 @@ const transport = nodeMailer.createTransport({
   },
 });
 
-export const EmailConfirm = async (userEmail: string) => {
+export const EmailConfirm = async (userEmail: string, html: string) => {
   try {
     await transport.sendMail({
       from: `Confirmação de Email <${process.env.EMAIL}>`,
       to: userEmail,
       subject: "CONFIRMAÇÃO DE EMAIL",
-      html: "<h1>Confirmação de Email</h1>",
+      html: html,
     });
   } catch (error) {
     console.error("Erro ao enviar email:", error);

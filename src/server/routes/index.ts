@@ -98,4 +98,10 @@ router.post(
   UsuariosController.SignIn
 );
 
+router.get(
+  "/usuarios/confirmar-email",
+  UsuariosController.confirmEmailValidation,
+  UsuariosController.ConfirmEmail
+);
+
 export { router };

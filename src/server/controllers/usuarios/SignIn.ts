@@ -49,6 +49,12 @@ export const SignIn = async (
         default: "Email ou Senha Invalidos",
       },
     });
+  } else if (!usuario.emailConfirmado) {
+    return res.status(StatusCodes.UNAUTHORIZED).json({
+      errors: {
+        default: "Email não confirmado.",
+      },
+    });
   } else {
     //se deu tudo certo, o status é ok e gera um token de acesso
     const accessToken = JWTService.sign({ uid: usuario.id });
